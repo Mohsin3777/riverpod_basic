@@ -1,20 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:learn_riverpod/logger_riverpod.dart';
 import 'package:learn_riverpod/river_examle/change_notif_chnage_notify_prov.dart';
 import 'package:learn_riverpod/river_examle/fetchListofdata_river.dart';
 import 'package:learn_riverpod/river_examle/future_provider.dart';
+import 'package:learn_riverpod/river_examle/river_family_exam.dart';
 import 'package:learn_riverpod/river_examle/state_not_state_notif_prov.dart';
 import 'package:learn_riverpod/river_examle/state_prov.dart';
+import 'package:learn_riverpod/river_examle/stream_prov.dart';
 import 'package:learn_riverpod/sidebar/side_home.dart';
 
 void main() {
-  runApp(ProviderScope(child: MyApp()));
+  runApp(ProviderScope(observers: [LoggerRiverpod()], child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {
   // const MyApp({super.key});
-
-  List<Widget> lst = [];
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +24,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: AllDataExample(),
+      home: Riv_Family_Example(),
     );
   }
 }

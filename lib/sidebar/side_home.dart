@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:sidebarx/sidebarx.dart';
 
 class SideHome extends StatefulWidget {
@@ -54,7 +55,9 @@ class _SideHomeState extends State<SideHome> {
   }
 }
 
-class ExampleSidebarX extends StatelessWidget {
+final visibProv = StateProvider((ref) => 0);
+
+class ExampleSidebarX extends ConsumerWidget {
   const ExampleSidebarX({
     Key? key,
     required SidebarXController controller,
@@ -64,7 +67,8 @@ class ExampleSidebarX extends StatelessWidget {
   final SidebarXController _controller;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    var ind = ref.watch(visibProv);
     return SidebarX(
       controller: _controller,
       theme: SidebarXTheme(
@@ -138,11 +142,27 @@ class ExampleSidebarX extends StatelessWidget {
           icon: Icons.people,
           label: 'People',
         ),
-        const SidebarXItem(
-          icon: Icons.favorite,
-          label: 'Favorites',
-        ),
-        const SidebarXItem(
+        SidebarXItem(
+            iconWidget: Row(
+              children: [
+                Visibility(
+                  visible: ind == 3 ? true : false,
+                  child: Container(
+                    color: Colors.red,
+                    width: 8,
+                    child: Text(''),
+                  ),
+                ),
+                const Icon(Icons.fax_rounded),
+              ],
+            ),
+            label: 'Favorites',
+            onTap: () {
+              ref.read(visibProv.notifier).update((state) => 3);
+
+              print(ind);
+            }),
+        SidebarXItem(
           iconWidget: FlutterLogo(size: 20),
           label: 'Flutter',
         ),
