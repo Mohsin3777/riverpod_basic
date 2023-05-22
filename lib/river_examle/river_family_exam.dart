@@ -86,7 +86,7 @@ class _Riv_Family_ExampleState extends ConsumerState<Riv_Family_Example> {
         child: Text(error.toString()),
       );
     }, loading: () {
-      return Center(
+      return const Center(
         child: CircularProgressIndicator(),
       );
     });
